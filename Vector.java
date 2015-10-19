@@ -43,7 +43,7 @@ public class Vector<E>
 		{
 			data[i] = other.get(i);
 		}
-		capacity = other.capacity;
+		capacity = data.length;
 		size = other.size();
 	}
 	
@@ -53,10 +53,10 @@ public class Vector<E>
 	*/
 	public void add(E toAdd)
 	{
-		data[size] = toAdd;
-		size++;
 		if(size >= capacity)
 			increaseCapacity();
+		data[size] = toAdd;
+		size++;
 	}
 	
 	/**
@@ -66,6 +66,8 @@ public class Vector<E>
 	*/
 	public void add(int index, E toAdd)
 	{
+		if(size >= capacity)
+			increaseCapacity();
 		if((index < 0) || (index > size))
 			throw new ArrayIndexOutOfBoundsException(); //attempted to throw an exception
 		size++;
@@ -75,8 +77,6 @@ public class Vector<E>
 			data[i] = toAdd;
 			toAdd = temp;
 		}
-		if(size >= capacity)
-			increaseCapacity();
 	}
 	
 	/**
@@ -131,36 +131,47 @@ public class Vector<E>
 	@param index spot of item that is going to be removed
 	@return E item that was removed
 	*/
-	/*
 	public E remove(int index)
 	{
-		//throw exception if index is greater than size
-		//similar to add
+		if((index < 0) || (index > size))
+			throw new ArrayIndexOutOfBoundsException();
+		E output = (E) data[index];
+		for(int i = index; i < size - 1; i++)
+		{
+			data[i] = data[i + 1];
+		}
+		size--;
+		return output;
 	}
-	*/
+	
 	/**
 	remove first instance of specified object
 	@param obj object to be removed
 	@return boolean true if object was removed and false is object not in vector
 	*/
-	/*
 	public boolean remove(E obj)
 	{
-		//can use contains to check if object is in vector, then use indexOf to get index of obj, then call other remove method with the int that indexOf returned
+		if(contains(obj) == false)
+			return false;
+		int i = indexOf(obj);
+		remove(i);
+		return true;
 	}
-	*/
+	
 	/**
 	places objects at specified location
 	@param index spot at which object is to be placed
 	@param obj object that is to be placed
 	@return E object that was previously at that spot
 	*/
-	/*
 	public E set(int index, E obj)
 	{
 		//throw exception if index is greater than size
+		E output = (E) data[index];
+		data[index] = obj;
+		return output;
 	}
-	*/
+	
 	/**
 	removes all items from the vector
 	*/
@@ -185,21 +196,26 @@ public class Vector<E>
 	@param obj checks whether obj is in vector
 	@return boolean returns true if obj is in the vector, false if not
 	*/
-	/*
 	public boolean contains(E obj)
 	{
 		//call indexOf 
+		if(indexOf(obj) >= 0)
+			return true;
+		return false;
 	}
-	*/
+	
 	/**
 	returns index of first instance of specified object
 	@param obj object whose index is returned
 	@return int index of obj
 	*/
-	/*
 	public int indexOf(E obj)
 	{
-		//I think this is the one method where I need a loop to go through the entire vector
+		for(int i = 0; i < size; i++)
+		{
+			if(obj.equals((E) data[i]))
+				return i;
+		}
+		return -1;
 	}
-	*/
 }
