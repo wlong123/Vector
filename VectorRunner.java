@@ -31,6 +31,7 @@ public class VectorRunner
 		v1.add(0,"l");
 		v1.add(0,"l");
 		v1.add(0,"i");
+		v1.add(0,null);
 		v1.add(0,"w");
 		v1.add(3,"s");
 		v1.add(0,"l");
@@ -38,6 +39,8 @@ public class VectorRunner
 		v1.add(0,"i");
 		v1.add(0,"w");
 		v1.add(3,"s");
+		System.out.println(v1);
+		v1.clear();
 		System.out.println(v1);
 		Vector<String> v2 = new Vector<String>(v);
 		v2.add("w");

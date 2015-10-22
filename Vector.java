@@ -16,9 +16,7 @@ public class Vector<E>
 	*/
 	public Vector()
 	{
-		data = new Object[10];
-		capacity = 10;
-		size = 0;
+		this(10);
 	}
 	
 	/**
@@ -27,6 +25,8 @@ public class Vector<E>
 	*/
 	public Vector(int initCapacity)
 	{
+		if(initCapacity < 0)
+			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
 		data = new Object[initCapacity];
 		capacity = initCapacity;
 		size = 0;
@@ -64,12 +64,13 @@ public class Vector<E>
 	@param index spot at which value is to be added
 	@param toAdd value that is to be added
 	*/
+	@SuppressWarnings("unchecked")
 	public void add(int index, E toAdd)
 	{
 		if(size >= capacity)
 			increaseCapacity();
 		if((index < 0) || (index > size))
-			throw new ArrayIndexOutOfBoundsException(); //attempted to throw an exception
+			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array"); 
 		size++;
 		for(int i = index; i < size; i++)
 		{
@@ -111,9 +112,11 @@ public class Vector<E>
 	@param index spot of data whose value is to be returned
 	@return E value at spot index of data
 	*/
+	@SuppressWarnings("unchecked")
 	public E get(int index)
 	{
-		//need to throw exception if inputted index is greater than size
+		if((index > size) || (index < 0))
+			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
 		return (E) data[index];
 	}
 	
@@ -131,10 +134,11 @@ public class Vector<E>
 	@param index spot of item that is going to be removed
 	@return E item that was removed
 	*/
+	@SuppressWarnings("unchecked")
 	public E remove(int index)
 	{
 		if((index < 0) || (index > size))
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
 		E output = (E) data[index];
 		for(int i = index; i < size - 1; i++)
 		{
@@ -164,6 +168,7 @@ public class Vector<E>
 	@param obj object that is to be placed
 	@return E object that was previously at that spot
 	*/
+	@SuppressWarnings("unchecked")
 	public E set(int index, E obj)
 	{
 		//throw exception if index is greater than size
@@ -177,6 +182,7 @@ public class Vector<E>
 	*/
 	public void clear()
 	{
+		data = new Object[capacity];
 		size = 0;
 	}
 	
@@ -209,6 +215,7 @@ public class Vector<E>
 	@param obj object whose index is returned
 	@return int index of obj
 	*/
+	@SuppressWarnings("unchecked")
 	public int indexOf(E obj)
 	{
 		for(int i = 0; i < size; i++)
