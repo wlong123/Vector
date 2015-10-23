@@ -3,13 +3,21 @@
 	@version 10/19/15
 	@author Will Long
 */
-public class Vector<E>
+import java.util.Iterator;
+
+public class Vector<E> implements Iterable<E>
 {
 	private Object[] data;
+	
+	/**
+	size of data
+	*/
 	private int capacity;
-	//size of data
+	
+	/**
+	number of objects currently being used in data
+	*/
 	private int size;
-	//number of objects currently being used in data
 	
 	/**
 	default constructor
@@ -25,8 +33,8 @@ public class Vector<E>
 	*/
 	public Vector(int initCapacity)
 	{
-		if(initCapacity < 0)
-			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
+		if(initCapacity <= 0)
+			throw new IllegalArgumentException("initial capacity cannot be less than or equal to zero: " + initCapacity);
 		data = new Object[initCapacity];
 		capacity = initCapacity;
 		size = 0;
@@ -38,6 +46,8 @@ public class Vector<E>
 	*/
 	public Vector(Vector<E> other)
 	{
+		if(other.isEmpty())
+			throw new IllegalArgumentException("cannot copy an empty vector");
 		data = new Object[other.size()];
 		for(int i = 0; i < other.size(); i++)
 		{
@@ -64,17 +74,18 @@ public class Vector<E>
 	@param index spot at which value is to be added
 	@param toAdd value that is to be added
 	*/
-	@SuppressWarnings("unchecked")
 	public void add(int index, E toAdd)
 	{
 		if(size >= capacity)
 			increaseCapacity();
-		if((index < 0) || (index > size))
-			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array"); 
+		if(index > size)
+			throw new ArrayIndexOutOfBoundsException("tried to add a value to spot " + index + ", size of array is " + size); 
+		if(index < 0)
+			throw new IllegalArgumentException("index is below zero: " + index);
 		size++;
 		for(int i = index; i < size; i++)
 		{
-			E temp = (E) data[i];
+			E temp = get(i);
 			data[i] = toAdd;
 			toAdd = temp;
 		}
@@ -115,8 +126,10 @@ public class Vector<E>
 	@SuppressWarnings("unchecked")
 	public E get(int index)
 	{
-		if((index > size) || (index < 0))
-			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
+		if(index > size)
+			throw new ArrayIndexOutOfBoundsException("tried to get a value at spot " + index + ", size of array is " + size);
+		if(index < 0)
+			throw new IllegalArgumentException("index is below zero: " + index);
 		return (E) data[index];
 	}
 	
@@ -137,8 +150,10 @@ public class Vector<E>
 	@SuppressWarnings("unchecked")
 	public E remove(int index)
 	{
-		if((index < 0) || (index > size))
-			throw new ArrayIndexOutOfBoundsException("index is below zero or greater than the size of the array");
+		if(index > size)
+			throw new ArrayIndexOutOfBoundsException("tried to remove a value at spot " + index + ", size of array is " + size);
+		if(index < 0)
+			throw new IllegalArgumentException("index is below zero: " + index);
 		E output = (E) data[index];
 		for(int i = index; i < size - 1; i++)
 		{
@@ -171,7 +186,11 @@ public class Vector<E>
 	@SuppressWarnings("unchecked")
 	public E set(int index, E obj)
 	{
-		//throw exception if index is greater than size
+		if(index > size)
+			throw new ArrayIndexOutOfBoundsException("tried to set a value at spot " + index + ", size of array is " + size);
+		if(index < 0)
+			throw new IllegalArgumentException("index is below zero: " + index);
+			
 		E output = (E) data[index];
 		data[index] = obj;
 		return output;
@@ -204,7 +223,6 @@ public class Vector<E>
 	*/
 	public boolean contains(E obj)
 	{
-		//call indexOf 
 		if(indexOf(obj) >= 0)
 			return true;
 		return false;
@@ -215,14 +233,23 @@ public class Vector<E>
 	@param obj object whose index is returned
 	@return int index of obj
 	*/
-	@SuppressWarnings("unchecked")
 	public int indexOf(E obj)
 	{
 		for(int i = 0; i < size; i++)
 		{
-			if(obj.equals((E) data[i]))
+			if(obj.equals(data[i]))
 				return i;
 		}
 		return -1;
 	}
+	
+	/**
+	iterator for the vector
+	@return Iterator<E> iterator for the vector
+	*/
+	public Iterator<E> iterator()
+	{
+		return new VectorIterator<E>(this);
+	}
+
 }
