@@ -43,10 +43,5 @@ public class VectorIterator<E> implements Iterator<E>
 		E output = vector.get(curr);
 		curr++;
 		return output;
-	}
-		
-	public void remove()
-	{
-	}
-			
+	}		
 }

@@ -26,7 +26,7 @@ public class Vector<E> implements Iterable<E>
 	{
 		this(10);
 	}
-	
+	   
 	/**
 	constructor that takes in an int initCapacity
 	@param initCapacity initial capacity of data
@@ -126,10 +126,8 @@ public class Vector<E> implements Iterable<E>
 	@SuppressWarnings("unchecked")
 	public E get(int index)
 	{
-		if(index > size)
+	if((index >= size) || (index < 0))
 			throw new ArrayIndexOutOfBoundsException("tried to get a value at spot " + index + ", size of array is " + size);
-		if(index < 0)
-			throw new IllegalArgumentException("index is below zero: " + index);
 		return (E) data[index];
 	}
 	
@@ -150,10 +148,8 @@ public class Vector<E> implements Iterable<E>
 	@SuppressWarnings("unchecked")
 	public E remove(int index)
 	{
-		if(index > size)
+		if((index >= size) || (index < 0))
 			throw new ArrayIndexOutOfBoundsException("tried to remove a value at spot " + index + ", size of array is " + size);
-		if(index < 0)
-			throw new IllegalArgumentException("index is below zero: " + index);
 		E output = (E) data[index];
 		for(int i = index; i < size - 1; i++)
 		{
@@ -186,11 +182,8 @@ public class Vector<E> implements Iterable<E>
 	@SuppressWarnings("unchecked")
 	public E set(int index, E obj)
 	{
-		if(index > size)
+		if((index >= size) || (index < 0))
 			throw new ArrayIndexOutOfBoundsException("tried to set a value at spot " + index + ", size of array is " + size);
-		if(index < 0)
-			throw new IllegalArgumentException("index is below zero: " + index);
-			
 		E output = (E) data[index];
 		data[index] = obj;
 		return output;
@@ -235,10 +228,21 @@ public class Vector<E> implements Iterable<E>
 	*/
 	public int indexOf(E obj)
 	{
-		for(int i = 0; i < size; i++)
+		if(obj == null)
 		{
-			if(obj.equals(data[i]))
+			for(int i = 0; i < size; i++)
+			{
+			if(data[i] == null)
 				return i;
+			}
+		}
+		else
+		{
+			for(int i = 0; i < size; i++)
+			{
+				if(obj.equals(data[i]))
+					return i;
+			}
 		}
 		return -1;
 	}
