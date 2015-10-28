@@ -17,6 +17,8 @@ public class VectorIterator<E> implements Iterator<E>
 	*/
 	public VectorIterator(Vector<E> v)
 	{
+		if((v == null) || (v.isEmpty()))
+			throw new IllegalArgumentException("cannot use an empty or null vector");
 		vector = v;
 		curr = 0;
 	}

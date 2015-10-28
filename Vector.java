@@ -46,7 +46,7 @@ public class Vector<E> implements Iterable<E>
 	*/
 	public Vector(Vector<E> other)
 	{
-		if(other.isEmpty())
+		if((other == null) || (other.isEmpty()))
 			throw new IllegalArgumentException("cannot copy an empty vector");
 		data = new Object[other.size()];
 		for(int i = 0; i < other.size(); i++)
@@ -78,10 +78,8 @@ public class Vector<E> implements Iterable<E>
 	{
 		if(size >= capacity)
 			increaseCapacity();
-		if(index > size)
+		if((index > size) || (index < 0))
 			throw new ArrayIndexOutOfBoundsException("tried to add a value to spot " + index + ", size of array is " + size); 
-		if(index < 0)
-			throw new IllegalArgumentException("index is below zero: " + index);
 		size++;
 		for(int i = index; i < size; i++)
 		{
@@ -116,6 +114,7 @@ public class Vector<E> implements Iterable<E>
 		{
 			data[i] = temp[i];
 		}
+		capacity = data.length;
 	}
 	
 	/**
@@ -126,7 +125,7 @@ public class Vector<E> implements Iterable<E>
 	@SuppressWarnings("unchecked")
 	public E get(int index)
 	{
-	if((index >= size) || (index < 0))
+		if((index >= size) || (index < 0))
 			throw new ArrayIndexOutOfBoundsException("tried to get a value at spot " + index + ", size of array is " + size);
 		return (E) data[index];
 	}
