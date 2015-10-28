@@ -2,7 +2,6 @@ public class VectorRunner
 {
 	public static void main(String [] args)
 	{
-		/*
 		Vector<Integer> a = new Vector<Integer>();
 		a.add(5);
 		a.add(4);
@@ -82,115 +81,6 @@ public class VectorRunner
 		v2.set(-4, "s");
 		v2.set(100, "s");
 		System.out.println(v2);
-		*/
-	try
-	{
-		Vector<String> tester = new Vector<String>(0);
-	}
-
-	catch (IllegalArgumentException e)
-	{
-		System.out.println("Caught Illegal Argument 1");
-	}
-
-	try
-	{
-		Vector<String> tester = new Vector<String>(null);
-	}
-
-	catch (IllegalArgumentException e)
-	{
-		System.out.println("Caught Illegal Argument 2");
-	}
-
-	Vector<String> tester = new Vector<String>(2);
-	tester.add("potato");
-	tester.add(null);
-	tester.add("tomato");
-	tester.add(null);
-	tester.add(null);
-	try
-	{
-		tester.add(-1, null);
-	}
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 1");
-	}
-	tester.add("tuna");
-	tester.add("bacon");
-	tester.add(null);
-	try
-	{
-		tester.add(9, null);
-	}
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 2");
-	}
-	tester.add("ham");
-	Vector<String> tester2 = new Vector<String>(tester);
-	System.out.println(tester2);
-	tester.add(0, null);
-	System.out.println(tester);
-	System.out.println(tester.get(0));
-	try
-	{
-		tester.get(10);
-	}
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 3");
-	}
-	try
-	{
-		tester.get(-1);
-	}
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 4");
-	}
-	System.out.println(tester.get(4));
-	System.out.println(tester.remove(0));
-	System.out.println(tester.remove(3));
-	System.out.println(tester);
-	try
-	{
-		tester.remove(-1);
-	}
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 5");
-	}
-	try
-	{
-		tester.remove(8);
-	}
-
-	catch (IndexOutOfBoundsException e)
-	{
-		System.out.println("Caught Index out of Bounds 6");
-	}
-	System.out.println();
-	System.out.println(tester);
-	System.out.println(tester.remove(null));
-
-	System.out.println(tester.remove(null));
-
-	System.out.println(tester.remove("green beans"));
-
-	System.out.println(tester.remove("potato"));
-
-	System.out.println(tester);
-
-	tester.clear();
-
-	Vector<String> tester3 = new Vector<String>(tester);
-
-	System.out.println(tester3);
-
-	System.out.println(tester.isEmpty());
-
-
+		
 	}
 }
