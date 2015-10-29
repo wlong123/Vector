@@ -46,7 +46,7 @@ public class Vector<E> implements Iterable<E>
 	*/
 	public Vector(Vector<E> other)
 	{
-		if((other == null) || (other.isEmpty()))
+		if(other == null)
 			throw new IllegalArgumentException("cannot copy an empty vector");
 		data = new Object[other.size()];
 		for(int i = 0; i < other.size(); i++)
